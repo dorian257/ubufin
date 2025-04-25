@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 
-import jwt
+import jwt as pyjwt
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
@@ -119,8 +119,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         https://pyjwt.readthedocs.io/en/latest/usage.html
         """
 
-        token = jwt.encode(self._get_jwt_payload(), settings.SECRET_KEY, algorithm="HS256")
-
+        token = pyjwt.encode(self._get_jwt_payload(), settings.SECRET_KEY, algorithm="HS256")
         #return token.decode("utf-8")
         return token
 
